@@ -1,7 +1,9 @@
 use std::fs;
 
 use crate::tools::search_in_file;
-
+use std::fs::File;
+use std::io::{self,BufRead,BufReader};
+use std::path::Path;
 pub fn search(
     needle: &str,
     haystack: &str,
@@ -10,11 +12,12 @@ pub fn search(
     count_matches: bool,
     invert_match: bool,
 ) {
-    match fs::read_to_string(haystack) {
-        Ok(contents) => {
+    match File::open(Path::new(haystack)) {
+        Ok(file) => {
+            let reader = BufReader::new(file);
             search_in_file::search_in_file(
                 needle,
-                contents.as_str(),
+                reader,
                 ignore_case,
                 line_numbers,
                 count_matches,
