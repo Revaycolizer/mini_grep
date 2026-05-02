@@ -13,6 +13,8 @@ struct Args {
     ignore_case: bool,
     #[arg(short = 'n', long)]
     line_numbers: bool,
+    #[arg(short = 'c',long)]
+    count_matches: bool,
 }
 
 fn main() {
@@ -23,5 +25,6 @@ fn main() {
         &args.haystack,
         args.ignore_case,
         args.line_numbers,
+        args.count_matches
     );
 }
