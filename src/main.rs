@@ -15,6 +15,8 @@ struct Args {
     line_numbers: bool,
     #[arg(short = 'c',long)]
     count_matches: bool,
+    #[arg(short = 'v', long)]
+    invert_match: bool,
 }
 
 fn main() {
@@ -25,6 +27,7 @@ fn main() {
         &args.haystack,
         args.ignore_case,
         args.line_numbers,
-        args.count_matches
+        args.count_matches,
+        args.invert_match
     );
 }
