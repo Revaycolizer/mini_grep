@@ -1,4 +1,6 @@
 use clap::Parser;
+use std::error::Error;
+use std::result::Result;
 
 mod tools;
 
@@ -13,13 +15,13 @@ struct Args {
     ignore_case: bool,
     #[arg(short = 'n', long)]
     line_numbers: bool,
-    #[arg(short = 'c',long)]
+    #[arg(short = 'c', long)]
     count_matches: bool,
     #[arg(short = 'v', long)]
     invert_match: bool,
 }
 
-fn main() {
+fn main() -> Result<(), Box<dyn Error>> {
     let args = Args::parse();
 
     tools::grep::search(
@@ -28,6 +30,8 @@ fn main() {
         args.ignore_case,
         args.line_numbers,
         args.count_matches,
-        args.invert_match
-    );
+        args.invert_match,
+    )?;
+
+    Ok(())
 }
